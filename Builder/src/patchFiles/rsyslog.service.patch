@@ -1,0 +1,17 @@
+--- rsyslog.service.orig	2023-04-24 15:54:56.490722000 +0100
++++ rsyslog.service.in	2023-04-24 17:06:36.279251000 +0100
+@@ -5,8 +5,12 @@ Documentation=man:rsyslogd(8)
+ Documentation=https://www.rsyslog.com/doc/
+ 
+ [Service]
+-Type=notify
+-ExecStart=@sbindir@/rsyslogd -n -iNONE
++Type=forking
++PIDFile=/var/run/syslogd.pid
++ExecStart=/sbin/rsyslogd -i /var/run/syslogd.pid
++ExecStartPre=/bin/bash -c "if [ -f '/opt/ericsson/enm-configuration/bin/rsyslog_pre_start.sh' ] ; then \
++   /opt/ericsson/enm-configuration/bin/rsyslog_pre_start.sh ; \
++fi"
+ StandardOutput=null
+ Restart=on-failure
+ 

@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>com.ericsson.litp</groupId>
+        <artifactId>integration</artifactId>
+        <version>2.47.1</version>
+    </parent>
+    <groupId>com.ericsson.nms.litp.3pps</groupId>
+    <artifactId>EXTRlitprsyslog</artifactId>
+    <version>2.4.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <rsyslog.version>8.2002.0</rsyslog.version>
+        <librelp.version>1.2.7</librelp.version>
+        <libestr.version>0.1.10</libestr.version>
+        <json-c.version>0.11</json-c.version>
+        <libfastjson.version>0.99.8</libfastjson.version>
+        <liblogging.version>1.0.5</liblogging.version>
+        <util-linux-ng.version>2.17.2</util-linux-ng.version>
+        <libnet.version>1.1.6</libnet.version>
+        <net-snmp.version>5.5</net-snmp.version>
+        <spec.path>rsyslog.spec</spec.path>
+    </properties>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>generate-rpm.version</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>regex-property</goal>
+                        </goals>
+                        <configuration>
+                            <name>rpm.version</name>
+                            <value>${project.version}</value>
+                            <regex>^(.*?)-.*</regex>
+                            <replacement>$1</replacement>
+                            <failIfNoMatch>false</failIfNoMatch>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+ 
+    <modules>
+        <module>Builder</module>
+        <module>EXTRlitprsyslog_CXP9032140</module>
+        <module>EXTRlitprsyslogelasticsearch_CXP9032173</module>
+        <module>EXTRlitprsysloggnutls_CXP9032174</module>
+        <module>EXTRlitprsyslogmmanon_CXP9032175</module>       
+        <module>EXTRlitprsyslogmmfields_CXP9032176</module>      
+        <module>EXTRlitprsyslogmmjsonparse_CXP9032177</module> 
+        <module>EXTRlitprsyslogmmutf8fix_CXP9032178</module> 
+        <module>EXTRlitprsyslogmysql_CXP9032179</module> 
+        <module>EXTRlitprsyslogommail_CXP9032180</module>  
+        <module>EXTRlitprsyslogpgsql_CXP9032181</module>       
+        <module>EXTRlitprsyslogpmciscoios_CXP9032182</module> 
+        <module>EXTRlitprsyslogsnmp_CXP9032184</module>        
+        <module>EXTRlitprsyslogudpspoof_CXP9032185</module>
+    </modules>
+    
+    <scm>
+        <developerConnection>
+            scm:git:ssh://gerrit.ericsson.se:29418/LITP/EXTRlitprsyslog
+        </developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+</project>

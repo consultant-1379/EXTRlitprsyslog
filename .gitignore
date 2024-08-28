@@ -1,0 +1,11 @@
+*.pyc
+*.swp
+*.rpm
+*.dp
+target
+my_rpms
+.settings
+.pydevproject
+.project
+.coverage
+.idea

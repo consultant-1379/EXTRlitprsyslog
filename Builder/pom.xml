@@ -1,0 +1,850 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.ericsson.nms.litp.3pps</groupId>
+    <artifactId>Rsyslog_Builder</artifactId>
+    <packaging>pom</packaging>
+    <name>[${project.artifactId}] Generate RPMs</name>
+    <description>LITP Rsyslog 8.2002.0</description>
+ 
+    <parent>
+        <groupId>com.ericsson.nms.litp.3pps</groupId>
+        <artifactId>EXTRlitprsyslog</artifactId>
+        <version>2.4.2-SNAPSHOT</version>
+    </parent>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+
+                    <execution>
+                        <id>unpack_libestr</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>net.sourceforge</groupId>
+                                    <artifactId>libestr</artifactId>
+                                    <version>${libestr.version}</version>
+                                    <type>tar.gz</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>
+                                        ${project.build.directory}/dependency/
+                                    </outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                            <localRepositoryDirectory>
+                                ${basedir}/localrepo
+                            </localRepositoryDirectory>
+                        </configuration>
+                    </execution>
+ 
+                    <execution>
+                        <id>unpack_librelp</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>net.sourceforge</groupId>
+                                    <artifactId>librelp</artifactId>
+                                    <version>${librelp.version}</version>
+                                    <type>tar.gz</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>
+                                        ${project.build.directory}/dependency/
+                                    </outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                            <localRepositoryDirectory>
+                                ${basedir}/localrepo
+                            </localRepositoryDirectory>
+                        </configuration>
+                    </execution>
+ 
+                    <execution>
+                        <id>unpack_util-linux-ng</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>net.sourceforge</groupId>
+                                    <artifactId>util-linux-ng</artifactId>
+                                    <version>${util-linux-ng.version}</version>
+                                    <type>tar.gz</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>
+                                        ${project.build.directory}/dependency/
+                                    </outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                            <localRepositoryDirectory>
+                                ${basedir}/localrepo
+                            </localRepositoryDirectory>
+                        </configuration>
+                    </execution>
+ 
+                    <execution>
+                        <id>unpack_liblogging</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.github</groupId>
+                                    <artifactId>liblogging</artifactId>
+                                    <version>${liblogging.version}</version>
+                                    <type>tar.gz</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>
+                                        ${project.build.directory}/dependency/
+                                    </outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+ 
+                    <execution>
+                        <id>unpack_libnet</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>net.sourceforge</groupId>
+                                    <artifactId>libnet</artifactId>
+                                    <version>${libnet.version}</version>
+                                    <type>tar.gz</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>
+                                        ${project.build.directory}/dependency/
+                                    </outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                            <localRepositoryDirectory>
+                                ${basedir}/localrepo
+                            </localRepositoryDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>unpack_net-snmp</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>net.sourceforge</groupId>
+                                    <artifactId>net-snmp</artifactId>
+                                    <version>${net-snmp.version}</version>
+                                    <type>tar.gz</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>
+                                        ${project.build.directory}/dependency/
+                                    </outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                            <localRepositoryDirectory>
+                                ${basedir}/localrepo
+                            </localRepositoryDirectory>
+                        </configuration>
+                    </execution>
+ 
+                    <execution>
+                        <id>unpack_json-c</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>net.sourceforge</groupId>
+                                    <artifactId>json-c</artifactId>
+                                    <version>${json-c.version}</version>
+                                    <type>tar.gz</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>
+                                        ${project.build.directory}/dependency/
+                                    </outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                            <localRepositoryDirectory>
+                                ${basedir}/localrepo
+                            </localRepositoryDirectory>
+                        </configuration>
+                    </execution>
+ 
+                    <execution>
+                        <id>unpack_libfastjson</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.github</groupId>
+                                    <artifactId>libfastjson</artifactId>
+                                    <version>${libfastjson.version}</version>
+                                    <type>tar.gz</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>
+                                        ${project.build.directory}/dependency/
+                                    </outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+ 
+                    <execution>
+                        <id>unpack_rsyslog</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.github</groupId>
+                                    <artifactId>rsyslog</artifactId>
+                                    <version>${rsyslog.version}</version>
+                                    <type>zip</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/SOURCES/</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                            <!--
+                                If the source isn't already uploaded to nexus you will have to create a local repo for your tarball.
+
+                                <nexus_server>/nexus/content/repositories/litp_thirdparty/{com/github/rsyslog/8.1903.0/rsyslog-8.1903.0.zip}
+
+                                Additionally make sure that your ~/.m2/settings.xml mirrors for downloading the tarball are correct. 
+ 
+                                should be;
+
+                                <nexus_server>/nexus/content/repositories/litp_thirdparty/
+
+                                <localRepositoryDirectory>${basedir}/localrepo</localRepositoryDirectory>
+                            -->
+
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+ 
+                   <plugin>
+                      <artifactId>maven-antrun-plugin</artifactId>
+                      <version>1.8</version>
+                      <executions>
+                         <execution>
+                            <phase>generate-resources</phase>
+                            <configuration>
+                               <tasks>
+                                  <echo message="unzipping file" />
+                                  <unzip src="${project.build.directory}/SOURCES/rsyslog-${rsyslog.version}.zip" dest="${project.build.directory}/SOURCES/" />
+                               </tasks>
+                            </configuration>
+                            <goals>
+                               <goal>run</goal>
+                            </goals>
+                         </execution>
+                      </executions>
+                   </plugin>
+
+            <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+               <artifactId>exec-maven-plugin</artifactId>
+               <version>1.2.1</version>
+               <executions>
+ 
+                   <execution>
+                       <id>create-SPEC-directory</id>
+                       <phase>initialize</phase>
+                       <goals>
+                           <goal>exec</goal>
+                       </goals>
+                       <configuration>
+                        <executable>mkdir</executable>
+                            <arguments>
+                                <argument>-p</argument>
+                                <argument>${project.build.directory}/SPEC</argument>
+                            </arguments>
+                       </configuration>
+                   </execution>
+
+                   <execution>
+                        <id>create-SOURCES-directory</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mkdir</executable>
+                            <arguments>
+                                <argument>-p</argument>
+                                <argument>${project.build.directory}/SOURCES</argument>
+                            </arguments>
+                        </configuration>
+                   </execution>
+
+                    <execution>
+                        <id>configure-util-linux-ng</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>./configure</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/util-linux-ng-${util-linux-ng.version}/
+                            </workingDirectory>
+                            <arguments>
+                                <argument> --prefix=${project.build.directory}/dependency/util-linux-ng-${util-linux-ng.version}/build </argument>
+                                <argument> --without-ncurses       </argument>
+                                <argument> --disable-tls           </argument>
+                                <argument> --disable-mount         </argument>
+                                <argument> --disable-fsck          </argument>
+                                <argument> --disable-uuidd         </argument>
+                                <argument> --disable-libblkid      </argument>
+                                <argument> --disable-nls           </argument>
+                                <argument> --disable-rpath         </argument>
+                                <argument> --disable-agetty        </argument>
+                                <argument> --disable-cramfs        </argument>
+                                <argument> --disable-switch_root   </argument>
+                                <argument> --disable-pivot_root    </argument>
+                                <argument> --disable-fallocate     </argument>
+                                <argument> --disable-unshare       </argument>
+                                <argument> --disable-use-tty-group </argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>compile-util-linux-ng</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>make</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/util-linux-ng-${util-linux-ng.version}/
+                            </workingDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-util-linux-ng</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>make</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/util-linux-ng-${util-linux-ng.version}/
+                            </workingDirectory>
+                            <arguments>
+                                <argument>install</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>configure-libestr</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>./configure</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/libestr-${libestr.version}/
+                            </workingDirectory>
+                            <arguments>
+                                <argument>
+                                    --prefix=${project.build.directory}/dependency/libestr-${libestr.version}/build
+                                </argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>compile-libestr</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>make</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/libestr-${libestr.version}/
+                            </workingDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-libestr</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>make</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/libestr-${libestr.version}/
+                            </workingDirectory>
+                            <arguments>
+                                <argument>install</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                   <execution>
+                        <id>configure-librelp</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>./configure</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/librelp-${librelp.version}/
+                            </workingDirectory>
+                            <arguments>
+                                <argument>
+                                    --prefix=${project.build.directory}/dependency/librelp-${librelp.version}/build
+                                </argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>compile-librelp</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>make</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/librelp-${librelp.version}/
+                            </workingDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-librelp</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>make</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/librelp-${librelp.version}/
+                            </workingDirectory>
+                            <arguments>
+                                <argument>install</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>configure-liblogging</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>./configure</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/liblogging-${liblogging.version}/
+                            </workingDirectory>
+                            <arguments>
+                                <argument>
+                                    --prefix=${project.build.directory}/dependency/liblogging-${liblogging.version}/build
+                                </argument>
+                                <argument> --enable-stdlog </argument>
+                                <argument> --disable-journal </argument>
+                                <argument> --enable-rfc3195 </argument>
+                                <!--
+                                <argument> LIBESTR_CFLAGS=/usr/include </argument>
+                                <argument> LIBESTR_LIBS=/usr/lib64/libestr.so </argument>
+                                <argument> LIBEE_CFLAGS=/usr/include </argument>
+                                <argument> LIBEE_LIBS=/usr/lib64/libee.so</argument>
+                                -->
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>compile-liblogging</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>make</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/liblogging-${liblogging.version}/
+                            </workingDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-liblogging</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>make</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/liblogging-${liblogging.version}/
+                            </workingDirectory>
+                            <arguments>
+                                <argument>install</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>configure-libnet</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>./configure</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/libnet-${libnet.version}/
+                            </workingDirectory>
+                            <arguments>
+                                <argument>
+                                    --prefix=${project.build.directory}/dependency/libnet-${libnet.version}/build
+                                </argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>compile-libnet</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>make</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/libnet-${libnet.version}/
+                            </workingDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-libnet</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>make</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/libnet-${libnet.version}/
+                            </workingDirectory>
+                            <arguments>
+                                <argument>install</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>configure-net-snmp</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>./configure</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/net-snmp-${net-snmp.version}/
+                            </workingDirectory>
+                            <arguments>
+                                <argument> --prefix=${project.build.directory}/dependency/net-snmp-${net-snmp.version}/build </argument>
+                                <argument> --disable-manuals        </argument>
+                                <argument> --with-defaults          </argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>compile-net-snmp</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>make</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/net-snmp-${net-snmp.version}/
+                            </workingDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>configure-json-c</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                           <executable>./configure</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/json-c-${json-c.version}/
+                            </workingDirectory>
+                            <arguments>
+                                <argument>
+                                    --prefix=${project.build.directory}/dependency/json-c-${json-c.version}/build
+                                </argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>compile-json-c</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>make</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/json-c-${json-c.version}/
+                            </workingDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-json-c</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>make</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/json-c-${json-c.version}/
+                            </workingDirectory>
+                            <arguments>
+                                <argument>install</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>configure-libfastjson</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>./configure</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/libfastjson-${libfastjson.version}/
+                            </workingDirectory>
+                            <arguments>
+                                <argument>
+                                    --prefix=${project.build.directory}/dependency/libfastjson-${libfastjson.version}/build
+                                </argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>compile-libfastjson</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>make</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/libfastjson-${libfastjson.version}/
+                            </workingDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-libfastjson</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>make</executable>
+                            <workingDirectory>
+                                ${project.build.directory}/dependency/libfastjson-${libfastjson.version}/
+                            </workingDirectory>
+                            <arguments>
+                                <argument>install</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                   <execution>
+                       <id>patch rsyslog.spec</id>
+                       <phase>generate-resources</phase>
+                       <goals>
+                           <goal>exec</goal>
+                       </goals>
+                       <configuration>
+                            <environmentVariables>
+                                <TMPDIR> ${project.build.directory} </TMPDIR>
+                            </environmentVariables>
+                            <executable>cp</executable>
+                            <arguments>
+                                <argument>${basedir}/src/specs/rsyslog.spec</argument>
+                                <argument>${project.build.directory}/SPEC/${spec.path}</argument>
+                            </arguments>
+                       </configuration>
+                   </execution>
+
+                   <execution>
+                       <id>patch rsyslog.init.epel6</id>
+                       <phase>generate-resources</phase>
+                       <goals>
+                           <goal>exec</goal>
+                       </goals>
+                       <configuration>
+                           <environmentVariables>
+                               <TMPDIR> ${project.build.directory} </TMPDIR>
+                           </environmentVariables>
+                           <executable>cp</executable>
+                           <arguments>
+                               <argument>${basedir}/src/sources/rsyslog.init.epel6</argument>
+                               <argument>${project.build.directory}/SOURCES/</argument>
+                           </arguments>
+                       </configuration>
+                   </execution>
+
+                   <execution>
+                       <id>patch rsyslog.log.epel6</id>
+                       <phase>generate-resources</phase>
+                       <goals>
+                           <goal>exec</goal>
+                       </goals>
+                       <configuration>
+                           <environmentVariables>
+                               <TMPDIR> ${project.build.directory} </TMPDIR>
+                           </environmentVariables>
+                           <executable>cp</executable>
+                           <arguments>
+                               <argument>${basedir}/src/sources/rsyslog.log.epel6</argument>
+                               <argument>${project.build.directory}/SOURCES/</argument>
+                           </arguments>
+                       </configuration>
+                   </execution>
+
+                   <execution>
+                       <id>patch rsyslog.sysconfig</id>
+                       <phase>generate-resources</phase>
+                       <goals>
+                           <goal>exec</goal>
+                       </goals>
+                       <configuration>
+                           <environmentVariables>
+                               <TMPDIR> ${project.build.directory} </TMPDIR>
+                           </environmentVariables>
+                           <executable>cp</executable>
+                           <arguments>
+                               <argument>${basedir}/src/sources/rsyslog.sysconfig</argument>
+                               <argument>${project.build.directory}/SOURCES/</argument>
+                           </arguments>
+                       </configuration>
+                   </execution>
+ 
+                   <execution>
+                       <id>patch rsyslog_v7.conf</id>
+                       <phase>generate-resources</phase>
+                       <goals>
+                           <goal>exec</goal>
+                       </goals>
+                       <configuration>
+                           <environmentVariables>
+                               <TMPDIR> ${project.build.directory} </TMPDIR>
+                           </environmentVariables>
+                           <executable>cp</executable>
+                           <arguments>
+                               <argument>${basedir}/src/sources/rsyslog_v7.conf</argument>
+                               <argument>${project.build.directory}/SOURCES/</argument>
+                           </arguments>
+                       </configuration>
+                   </execution>
+
+                   <execution>
+                       <id>patch rsyslog.service</id>
+                       <phase>generate-resources</phase>
+                       <goals>
+                           <goal>exec</goal>
+                       </goals>
+                       <configuration>
+                           <environmentVariables>
+                               <TMPDIR> ${project.build.directory} </TMPDIR>
+                           </environmentVariables>
+                           <executable>cp</executable>
+                           <arguments>
+                               <argument>${basedir}/src/patchFiles/rsyslog.service.patch</argument>
+                               <argument>${project.build.directory}/SOURCES/</argument>
+                           </arguments>
+                       </configuration>
+                   </execution>
+
+                   <execution>
+                      <id>define-rpm-parameters</id>
+                      <phase>prepare-package</phase>
+                      <goals>
+                          <goal>exec</goal>
+                      </goals>
+                      <configuration>
+                          <environmentVariables>
+                              <TMPDIR> ${project.build.directory} </TMPDIR>
+                              <!--
+                              <C_INCLUDE_PATH>${C_INCLUDE_PATH}:${basedir}/net-snmp-5.5/include/</C_INCLUDE_PATH>
+                              <LIBRARY_PATH>${LIBRARY_PATH}:${basedir}/net-snmp-5.5/lib/</LIBRARY_PATH>
+                              -->
+                          </environmentVariables>
+                          <executable>${basedir}/src/scripts/define-rpm-parameters.sh</executable>
+                          <workingDirectory>${project.build.directory}</workingDirectory>
+                          <arguments>
+                              <argument>${spec.path}</argument>
+                              <argument>${rpm.version}</argument>
+                              <argument>${ericsson.rstate}</argument>
+                        </arguments>
+                      </configuration>
+                   </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
